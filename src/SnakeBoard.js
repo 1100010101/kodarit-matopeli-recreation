@@ -1,29 +1,45 @@
-import React, {useState} from 'react'
+import React, {
+  useState
+} from 'react'
+import "./SnakeBoard.css";
+
 
 const SnakeBoard = () => {
-const height = 10
-const width = 10
-var initialRows = []
-for (var i = 0; i < height; i++) {
-  initialRows[i] = []
-    for (var j = 0; j < width; j++) {
-      initialRows[i][j] = 'blank'
+    const height = 10
+    const width = 10
+    var initialRows = []
+    for (var i = 0; i < height; i++) {
+      initialRows[i] = []
+      for (var j = 0; j < width; j++) {
+        initialRows[i][j] = 'blank'
+      }
+
     }
+    const [rows, setRows] = useState(initialRows)
+    const [snake, setSnake] = useState([{
+      x: 0,
+      y: 0
+    }])
+    const [direction, setDirection] = useState("right")
 
-}
- const [rows, setRows] = useState(initialRows)
+    const displayRows = rows.map(row =>
+        <
+        div className = 'Snake-row' > {
+          row.map(tile => < div className = {
+              `tile ${tile}`
+            }
 
- const displayRows = rows.map(row =>
-  <div className='Snake-row'>
-    {row.map(tile => <div className={tile} />)}
-  </div>
-  )
 
-  return (
-    <div className='Snake-board'>
-    {displayRows}
-    </div>
-  )
-}
+            />)} < /
+            div >
+          )
 
-export default SnakeBoard
+          return ( <
+            div className = 'Snake-board' > {
+              displayRows
+            } <
+            /div>
+          )
+        }
+
+        export default SnakeBoard

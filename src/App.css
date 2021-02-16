@@ -2,11 +2,15 @@
   text-align: center;
   background-color: #2292A4;
   min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 /*https://coolors.co/069e2d-f6f4d2-f19c79-a44a3f-69585f*/
 
 .App-header {
+  min-width: 100%;
   background-color: #282c34;
   min-height: 10vh;
   display: flex;
@@ -15,5 +19,5 @@
   justify-content: center;
   font-size: calc(20px + 2vmin);
   font-family: 'Montserrat Alternates', sans-serif;
-  color: #069E2D
+  color: #069E2D;
 }
