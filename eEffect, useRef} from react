@@ -1,0 +1,121 @@
+[1mdiff --git a/.eslintcache b/.eslintcache[m
+[1mindex 53cef9f..9b5c4b0 100644[m
+[1m--- a/.eslintcache[m
+[1m+++ b/.eslintcache[m
+[36m@@ -1 +1 @@[m
+[31m-[{"C:\\Users\\oma\\Documents\\kodarit-Noel\\matopeli-recreated\\src\\index.js":"1","C:\\Users\\oma\\Documents\\kodarit-Noel\\matopeli-recreated\\src\\App.js":"2","C:\\Users\\oma\\Documents\\kodarit-Noel\\matopeli-recreated\\src\\SnakeBoard.js":"3"},{"size":432,"mtime":1612279552684,"results":"4","hashOfConfig":"5"},{"size":238,"mtime":1612886540423,"results":"6","hashOfConfig":"5"},{"size":962,"mtime":1613491699701,"results":"7","hashOfConfig":"5"},{"filePath":"8","messages":"9","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"10"},"14ssg39",{"filePath":"11","messages":"12","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"10"},{"filePath":"13","messages":"14","errorCount":0,"warningCount":5,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},"C:\\Users\\oma\\Documents\\kodarit-Noel\\matopeli-recreated\\src\\index.js",[],["15","16"],"C:\\Users\\oma\\Documents\\kodarit-Noel\\matopeli-recreated\\src\\App.js",[],"C:\\Users\\oma\\Documents\\kodarit-Noel\\matopeli-recreated\\src\\SnakeBoard.js",["17","18","19","20","21"],{"ruleId":"22","replacedBy":"23"},{"ruleId":"24","replacedBy":"25"},{"ruleId":"26","severity":1,"message":"27","line":18,"column":18,"nodeType":"28","messageId":"29","endLine":18,"endColumn":25},{"ruleId":"26","severity":1,"message":"30","line":19,"column":12,"nodeType":"28","messageId":"29","endLine":19,"endColumn":17},{"ruleId":"26","severity":1,"message":"31","line":19,"column":19,"nodeType":"28","messageId":"29","endLine":19,"endColumn":27},{"ruleId":"26","severity":1,"message":"32","line":23,"column":12,"nodeType":"28","messageId":"29","endLine":23,"endColumn":21},{"ruleId":"26","severity":1,"message":"33","line":23,"column":23,"nodeType":"28","messageId":"29","endLine":23,"endColumn":35},"no-native-reassign",["34"],"no-negated-in-lhs",["35"],"no-unused-vars","'setRows' is assigned a value but never used.","Identifier","unusedVar","'snake' is assigned a value but never used.","'setSnake' is assigned a value but never used.","'direction' is assigned a value but never used.","'setDirection' is assigned a value but never used.","no-global-assign","no-unsafe-negation"][m
+\ No newline at end of file[m
+[32m+[m[32m[{"C:\\Users\\oma\\Documents\\kodarit-Noel\\matopeli-recreated\\src\\index.js":"1","C:\\Users\\oma\\Documents\\kodarit-Noel\\matopeli-recreated\\src\\App.js":"2","C:\\Users\\oma\\Documents\\kodarit-Noel\\matopeli-recreated\\src\\SnakeBoard.js":"3","C:\\Users\\oma\\Documents\\kodarit-Noel\\matopeli-recreated\\src\\utils.js":"4"},{"size":432,"mtime":1612279552684,"results":"5","hashOfConfig":"6"},{"size":238,"mtime":1612886540423,"results":"7","hashOfConfig":"6"},{"size":1681,"mtime":1614700750213,"results":"8","hashOfConfig":"6"},{"size":834,"mtime":1614700061980,"results":"9","hashOfConfig":"6"},{"filePath":"10","messages":"11","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"12"},"14ssg39",{"filePath":"13","messages":"14","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"12"},{"filePath":"15","messages":"16","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"17","messages":"18","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"C:\\Users\\oma\\Documents\\kodarit-Noel\\matopeli-recreated\\src\\index.js",[],["19","20"],"C:\\Users\\oma\\Documents\\kodarit-Noel\\matopeli-recreated\\src\\App.js",[],"C:\\Users\\oma\\Documents\\kodarit-Noel\\matopeli-recreated\\src\\SnakeBoard.js",["21"],"C:\\Users\\oma\\Documents\\kodarit-Noel\\matopeli-recreated\\src\\utils.js",[],{"ruleId":"22","replacedBy":"23"},{"ruleId":"24","replacedBy":"25"},{"ruleId":"26","severity":1,"message":"27","line":25,"column":23,"nodeType":"28","messageId":"29","endLine":25,"endColumn":35},"no-native-reassign",["30"],"no-negated-in-lhs",["31"],"no-unused-vars","'setDirection' is assigned a value but never used.","Identifier","unusedVar","no-global-assign","no-unsafe-negation"][m
+\ No newline at end of file[m
+[1mdiff --git a/src/SnakeBoard.css b/src/SnakeBoard.css[m
+[1mindex ea9e14b..668442c 100644[m
+[1m--- a/src/SnakeBoard.css[m
+[1m+++ b/src/SnakeBoard.css[m
+[36m@@ -22,3 +22,6 @@[m
+ .blank {[m
+   background: white;[m
+ }[m
+[32m+[m[32m.snake {[m
+[32m+[m[32m  background: green;[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/SnakeBoard.js b/src/SnakeBoard.js[m
+[1mindex 6a0bb11..523a481 100644[m
+[1m--- a/src/SnakeBoard.js[m
+[1m+++ b/src/SnakeBoard.js[m
+[36m@@ -1,45 +1,66 @@[m
+ import React, {[m
+   useState[m
+[31m-} from 'react'[m
+[32m+[m[32m} from "react";[m
+[32m+[m[32mimport {[m
+[32m+[m[32m  useInterval[m
+[32m+[m[32m} from "./utils";[m
+ import "./SnakeBoard.css";[m
+ [m
+[31m-[m
+ const SnakeBoard = () => {[m
+[31m-    const height = 10[m
+[31m-    const width = 10[m
+[31m-    var initialRows = [][m
+[32m+[m[32m    const height = 10;[m
+[32m+[m[32m    const width = 10;[m
+[32m+[m[32m    var initialRows = [];[m
+     for (var i = 0; i < height; i++) {[m
+[31m-      initialRows[i] = [][m
+[32m+[m[32m      initialRows[i] = [];[m
+       for (var j = 0; j < width; j++) {[m
+[31m-        initialRows[i][j] = 'blank'[m
+[32m+[m[32m        initialRows[i][j] = "blank";[m
+       }[m
+[31m-[m
+     }[m
+[31m-    const [rows, setRows] = useState(initialRows)[m
+[32m+[m
+[32m+[m[32m    const [rows, setRows] = useState(initialRows);[m
+     const [snake, setSnake] = useState([{[m
+       x: 0,[m
+       y: 0[m
+[31m-    }])[m
+[31m-    const [direction, setDirection] = useState("right")[m
+[32m+[m[32m    }]);[m
+[32m+[m[32m    const [direction, setDirection] = useState("right");[m
+ [m
+[31m-    const displayRows = rows.map(row =>[m
+[31m-        <[m
+[31m-        div className = 'Snake-row' > {[m
+[31m-          row.map(tile => < div className = {[m
+[31m-              `tile ${tile}`[m
+[31m-            }[m
+[32m+[m[32m    const displayRows = rows.map(row => ( <[m
+[32m+[m[32m          div className = "Snake-row" > {[m
+[32m+[m[32m            row.map(tile => < div className = {[m
+[32m+[m[32m                `tile ${tile}`[m
+[32m+[m[32m              }[m
+[32m+[m[32m              />)} < /[m
+[32m+[m[32m              div >[m
+[32m+[m[32m            ));[m
+ [m
+[32m+[m[32m          const displaySnake = () => {[m
+[32m+[m[32m            const newRows = initialRows;[m
+[32m+[m[32m            snake.forEach(tile => {[m
+[32m+[m[32m              newRows[tile.x][tile.y] = "snake";[m
+[32m+[m[32m            });[m
+[32m+[m[32m            setRows(newRows);[m
+[32m+[m[32m          };[m
+ [m
+[31m-            />)} < /[m
+[31m-            div >[m
+[31m-          )[m
+[32m+[m[32m          const moveSnake = () => {[m
+[32m+[m[32m            const newSnake = [];[m
+[32m+[m[32m            switch (direction) {[m
+[32m+[m[32m              case 'right':[m
+[32m+[m[32m                newSnake.push({[m
+[32m+[m[32m                  x: snake[0].x,[m
+[32m+[m[32m                  y: (snake[0].y + 1) % width[m
+[32m+[m[32m                });[m
+[32m+[m[32m                break[m
+[32m+[m[32m              default:[m
+[32m+[m[32m                break;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            setSnake(newSnake);[m
+[32m+[m[32m            displaySnake();[m
+[32m+[m[32m          };[m
+ [m
+[31m-          return ( <[m
+[31m-            div className = 'Snake-board' > {[m
+[31m-              displayRows[m
+[31m-            } <[m
+[31m-            /div>[m
+[31m-          )[m
+[31m-        }[m
+[32m+[m[32m          useInterval(moveSnake, 250);[m
+[32m+[m[32m          return <div className = "Snake-board" > {[m
+[32m+[m[32m            displayRows[m
+[32m+[m[32m          } < /div>;[m
+[32m+[m[32m        };[m
+ [m
+[31m-        export default SnakeBoard[m
+\ No newline at end of file[m
+[32m+[m[32m        export default SnakeBoard;[m
+\ No newline at end of file[m
