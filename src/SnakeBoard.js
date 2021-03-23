@@ -17,12 +17,22 @@ const SnakeBoard = () => {
     }
   }
 
+  const randomPosition = () => {
+    const position = {
+      x: Math.floor(Math.random() * width),
+      y: Math.floor(Math.random() * height),
+    };
+    return position;
+  };
   const [rows, setRows] = useState(initialRows);
   const [snake, setSnake] = useState([{
     x: 0,
     y: 0
   }]);
   const [direction, setDirection] = useState("right");
+  const [food, setFood] = useState(randomPosition)
+
+
 
   const changeDirectionWithKeys = (e) => {
     const {
@@ -68,6 +78,7 @@ const SnakeBoard = () => {
     snake.forEach(tile => {
       newRows[tile.x][tile.y] = "snake";
     });
+    newRows[food.x][food.y] = "food";
     setRows(newRows);
   };
 
@@ -100,6 +111,18 @@ const SnakeBoard = () => {
         break;
       default:
         break;
+    }
+    // Lisätään madolle jaka askeleella uusi pala
+    //joka poistetaan jos amto ei saa tällä askeleella ruokaa
+    snake.forEach(tile => {
+      newSnake.push(tile);
+    });
+    //Tarkistetaan saako mato ruuan kiinni
+    const madonPaa = snake[0];
+    if (madonPaa.x === food.x && madonPaa.y === food.y) {
+      setFood(randomPosition);
+    } else {
+      newSnake.pop()
     }
     setSnake(newSnake);
     displaySnake();
