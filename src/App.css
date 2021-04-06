@@ -21,3 +21,14 @@
   font-family: 'Montserrat Alternates', sans-serif;
   color: #069E2D;
 }
+
+button {
+  color:#2E86AB;
+  background-color: #000000;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 20px;
+  border: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+}

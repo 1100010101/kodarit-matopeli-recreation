@@ -6,7 +6,10 @@ import {
 } from "./utils";
 import "./SnakeBoard.css";
 
-const SnakeBoard = () => {
+const SnakeBoard = ({
+    points,
+    setPoints
+  }) => {
     const height = 10;
     const width = 10;
     var initialRows = [];
@@ -124,7 +127,10 @@ const SnakeBoard = () => {
 
       if (checkGameOver()) {
         setisGameOver(true);
-        clearInterval(intervalId)
+        clearInterval(intervalId);
+        const pointsList = JSON.parse(localStorage.getItem('snake-points')) || [];
+        pointsList.push(points);
+        localStorage.setItem('snake-points', JSON.stringify(pointsList));
       }
       // Lisätään madolle jaka askeleella uusi pala
       //joka poistetaan jos amto ei saa tällä askeleella ruokaa
@@ -135,6 +141,7 @@ const SnakeBoard = () => {
       const madonPaa = snake[0];
       if (madonPaa.x === food.x && madonPaa.y === food.y) {
         setFood(randomPosition);
+        setPoints(points + 1);
       } else {
         newSnake.pop()
       }
@@ -148,7 +155,7 @@ const SnakeBoard = () => {
       }
 
       {
-        !isGameOver && < div className = "Game-over" > Game over! < /div>} < /
+        isGameOver && < div className = "Game-over" > Game over! < /div>} < /
         div >
       );
     };
