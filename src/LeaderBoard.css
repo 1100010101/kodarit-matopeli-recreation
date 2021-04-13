@@ -1,0 +1,11 @@
+.LeaderBoard {
+  margin-top: 20px;
+}
+
+.LeaderBoard-header {
+  padding: 5px;
+  font-size: 20px;
+  background-color: pink;
+  color: red;
+  border-radius: 5px;
+}
