@@ -109,7 +109,7 @@ const SnakeBoard = ({points, setPoints}) => {
       setisGameOver(true);
       clearInterval(intervalId);
       const pointsList = JSON.parse(localStorage.getItem("snake-points")) || [];
-      pointsList.push(points);
+      pointsList.push({name: "oaoa", points});
       localStorage.setItem("snake-points", JSON.stringify(pointsList));
       window.dispatchEvent(new Event("storage"));
     }
