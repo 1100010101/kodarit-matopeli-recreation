@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useInterval} from "./utils";
+import {useInterval, range} from "./utils";
 import "./SnakeBoard.css";
 
 const SnakeBoard = ({points, setPoints}) => {
@@ -12,6 +12,29 @@ const SnakeBoard = ({points, setPoints}) => {
       initialRows[i][j] = "blank";
     }
   }
+
+  const obstacles = [
+    {name: "tyhjä", location: []},
+    {
+      name: "keski",
+      location: range(width * 0.6).map(y => ({
+        x: Math.round(height / 2),
+        y: y + Math.ceil(width * 0.2)
+      }))
+    },
+    {
+      name: "reunat",
+      location: [
+        ...range(width).map(x => ({x, y: 0})),
+        ...range(width).map(x => ({x, y: height - 1})),
+        ...range(height).map(y => ({x: 0, y})),
+        ...range(height).map(y => ({x: height - 1, y}))
+      ]
+    }
+  ];
+
+  const randomObstacle = () =>
+    obstacles[Math.floor(Math.random() * obstacles.length)];
 
   const randomPosition = () => {
     const position = {
@@ -109,7 +132,8 @@ const SnakeBoard = ({points, setPoints}) => {
       setisGameOver(true);
       clearInterval(intervalId);
       const pointsList = JSON.parse(localStorage.getItem("snake-points")) || [];
-      pointsList.push({name: "oaoa", points});
+      const name = prompt("Peli päättyi! Anna nimimerkkisi:");
+      pointsList.push({name, points});
       localStorage.setItem("snake-points", JSON.stringify(pointsList));
       window.dispatchEvent(new Event("storage"));
     }
