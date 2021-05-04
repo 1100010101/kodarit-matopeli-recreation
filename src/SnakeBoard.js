@@ -30,6 +30,17 @@ const SnakeBoard = ({points, setPoints}) => {
         ...range(height).map(y => ({x: 0, y})),
         ...range(height).map(y => ({x: height - 1, y}))
       ]
+    },
+    {
+      name: "oma",
+      location: [
+        ...range(width).map(x => ({x, y: 0})),
+        ...range(width).map(x => ({x, y: height - 2})),
+        ...range(width).map(x => ({x, y: height - 1})),
+        ...range(height).map(y => ({x: 0, y})),
+        ...range(height).map(y => ({x: height - 2, y})),
+        ...range(height).map(y => ({x: height - 1, y}))
+      ]
     }
   ];
 
@@ -41,13 +52,20 @@ const SnakeBoard = ({points, setPoints}) => {
       x: Math.floor(Math.random() * width),
       y: Math.floor(Math.random() * height)
     };
+    if (
+      obstacle.location.some(({x, y}) => position.x === x && position.y === y)
+    ) {
+      return randomPosition();
+    }
     return position;
   };
+
+  const [obstacle] = useState(randomObstacle());
   const [rows, setRows] = useState(initialRows);
   const [snake, setSnake] = useState([
     {
-      x: 0,
-      y: 0
+      x: 1,
+      y: 1
     }
   ]);
   const [direction, setDirection] = useState("right");
@@ -88,13 +106,20 @@ const SnakeBoard = ({points, setPoints}) => {
       newRows[tile.x][tile.y] = "snake";
     });
     newRows[food.x][food.y] = "food";
+    obstacle.location.forEach(tile => {
+      newRows[tile.x][tile.y] = "obstacle";
+    });
     setRows(newRows);
   };
 
   const checkGameOver = () => {
     const head = snake[0];
     const body = snake.slice(1, -1);
-    return body.find(b => b.x === head.x && b.y === head.y);
+    const hitSnake = body.find(b => b.x === head.x && b.y === head.y);
+    const hitWall = obstacle.location.some(
+      ({x, y}) => head.x === x && head.y === y
+    );
+    return hitSnake || hitWall;
   };
 
   const moveSnake = () => {
