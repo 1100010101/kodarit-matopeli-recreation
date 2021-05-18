@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {useInterval, range} from "./utils";
 import "./SnakeBoard.css";
 
 const SnakeBoard = ({points, setPoints}) => {
-  const [height, setHeight] = useState(localStorage.getItem('snake-board-size') || 10)
-  const [width, setWidth] = useState(localStorage.getItem('snake-board-size') || 10)
+  const [height, setHeight] = useState(parseInt(localStorage.getItem('snake-board-size')) || 10)
+  const [width, setWidth] = useState(parseInt(localStorage.getItem('snake-board-size') || 10))
   const getInitialRows = () => {
     var initialRows = [];
     for (var i = 0; i < height; i++) {
@@ -40,6 +40,8 @@ const SnakeBoard = ({points, setPoints}) => {
         ...range(width).map(x => ({x, y: height - 2})),
         ...range(width).map(x => ({x, y: height - 1})),
         ...range(height).map(y => ({x: 0, y})),
+        ...range(height).map(y => ({x: 1, y})),
+        ...range(width).map(x => ({x, y: 1})),
         ...range(height).map(y => ({x: height - 2, y})),
         ...range(height).map(y => ({x: height - 1, y}))
       ]
@@ -66,15 +68,25 @@ const SnakeBoard = ({points, setPoints}) => {
   const [rows, setRows] = useState(getInitialRows);
   const [snake, setSnake] = useState([
     {
-      x: 1,
-      y: 1
+      x: 2,
+      y: 2
     }
   ]);
   const [direction, setDirection] = useState("right");
   const [food, setFood] = useState(randomPosition);
   const [intervalId, setIntervalId] = useState();
   const [isGameOver, setisGameOver] = useState(false);
-  const [startGame, setStartGame] = useState(null);
+  const [startGame, setStartGame] = useState(false)
+  const [error, setError] = useState(null)
+
+  useEffect(
+    () => {
+    if (width >= 10 && width <= 100 && height >= 10 && height <= 100) {
+      setObstacle(randomObstacle())
+      setRows(getInitialRows())
+      setFood(randomPosition())
+    }
+  }, [width, height])
 
   const changeDirectionWithKeys = e => {
     const {keyCode} = e;
@@ -196,24 +208,29 @@ const SnakeBoard = ({points, setPoints}) => {
         type="number"
         onChange={
           (e) => {
-            const size = e.target.value
+            const size = parseInt(e.target.value)
             if (size <= 100 && size >= 10) {
               console.log("OK", size);
               setWidth(size)
               setHeight(size)
               localStorage.setItem("snake-board-size", size);
+              setError(null)
             } else {
               console.error("Kokeile jotain toista lukua", size);
+              setError(
+                `Pelilaudan koko on liian ${size > 100 ? "suuri" : "pieni"}`
+              )
             }
           }
         }
         />
+        {error && <div className="Error">{error}</div>}
         <button className="Start-game" onClick={setStartGame}>Aloita peli
         </button>
         </>
       )}
       {" "}
-      {displayRows}
+      {startGame && displayRows}
       {isGameOver && <div className="Game-over"> Game over! </div>}{" "}
     </div>
   );

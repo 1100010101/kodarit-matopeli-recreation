@@ -50,3 +50,7 @@
 .obstacle {
   background: black;
 }
+
+.Error {
+  color: red;
+}
